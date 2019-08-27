@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <title>The Stadium</title>
+    <meta name="The Forest" content="The Forest">  
+    <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
+    <!--script src="GLTFLoader.js"></script-->
+    <!--script src="aframe-gltf.js"></script-->
+    <script src="http://sdk.altvr.com/libs/altspace.js/0.28.1/altspace.min.js"></script>
+    <!--script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+    <script src="https://rawgit.com/stevenvergenz/altspace-diorama/master/dist/diorama.js"></script-->
+    <script>THREE.PositionalAudio = THREE.Audio</script>
+    
+    <!--script>
+      AFRAME.registerComponent('document', {
+        init: function () {
+          altspace.getDocument().then(function (doc) {
+            console.log(doc, this, this.entity, this.el);
+            this.el.setObject3D('mesh', doc);
+          }.bind(this)); 
+       } 
+      }) 
+    </script-->   
+
+</head>
+  </head>
+  <body>
+        <!--script>
+            var d = new Diorama();
+            d.start({
+                assets: {models: {box: 'feild.gltf'}},
+                initialize: function(env, root, assets){
+                    root.add(assets.models.box);
+                }
+            });
+        </script-->
+
+  <!--div>
+    <iframe width="820" height="473" src="https://video-jukebox.firebaseapp.com/?room=-KT1IyymhMZd9fe1Xzk9" frameborder="0"></iframe>
+  </div-->
+
+  <!-- https://www.youtube.com/embed/Aqw7gbMD7OA?autoplay=1&vq=tiny&autohide=0 -->
+
+    <a-scene altspace="verticalAlign: middle; fullspace: true" vr-mode-ui="enabled: false" sync-system="author: Ducky; app: Stadium"> <!--fog="type: linear; color: white; far: 60; near: 0"-->
+
+
+      <!-- Asset Loading -->
+
+      <a-assets>
+        <img id="load" src="loading.jpg">
+        <a-asset-item id="feild-mtl" src="feild.mtl"></a-asset-item>
+        <a-asset-item id="feild-obj" src="feild.obj"></a-asset-item>
+        <!--a-asset-item id="feild-gltf" src="feild.gltf"></a-asset-item-->
+
+      <!-- Image assets --> 
+
+        <img id="sky" src="stadium.jpg">
+        <img id="bush" src="bush.jpg">
+        <img id="conc" src="conc.jpg">
+
+      </a-assets>      
+      
+    <!-- Aframe adds-->
+
+      <a-box material="src: #load; repeat: 1 1" scale="8 4 4" position="0 2 6" n-mesh-collider="type: environment; convex: true"></a-box>
+      <a-box material="src: #load; repeat: 1 1" scale="8 4 4" position="0 2 -6" n-mesh-collider="type: environment; convex: true"></a-box>
+      <a-box material="src: #load; repeat: 1 1" scale="4 4 8" position="6 2 0" n-mesh-collider="type: environment; convex: true"></a-box>
+      <a-box material="src: #load; repeat: 1 1" scale="4 4 8" position="-6 2 0" n-mesh-collider="type: environment; convex: true"></a-box>
+
+      <a-entity n-spawner="res:interactables/box" position="-5 7.5 -5"></a-entity>
+      <a-entity n-spawner="res:interactables/soccerball" position="-4 7.5 -5"></a-entity>
+      <a-entity n-spawner="res:interactables/bowlingball" position="-3 7.5 -5"></a-entity>
+      <a-entity n-spawner="res:interactables/gem" position="-2 7.5 -5"></a-entity>
+      <a-entity n-spawner="res:interactables/basketball" position="0 7.5 -5"></a-entity>
+      <a-entity n-spawner="res:interactables/basketball" position="0 22 6"></a-entity>
+      <a-entity n-spawner="res:interactables/basketball" position="0 22 -6"></a-entity>
+
+      <a-entity n-spawner="res:interactables/basketball" position="-67 7 14"></a-entity>
+      <a-box id="pc" material="src: #conc; repeat: 3 10" depth="1.5" height=".5" width="4" rotation="45 0 0" position="-38.5 30 10" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" dur="5000" easing="linear" repeat="indefinite" from="-76.5 -5 12" to="-76.5 31 12"></a-animation>
+      </a-box>
+
+      <a-box id="el" material="src: #conc; repeat: 3 10" depth="15" height=".5" width="15" position="-38.5 30 -74" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" dur="7000" repeat="0" from="0 -4 0" to="0 5.5 0"></a-animation>
+        <a-animation attribute="position" begin="up" dur="10000" repeat="0" from="0 5.5 0" to="0 20 0"></a-animation>
+        <a-animation attribute="position" begin="down" dur="10000" repeat="0" from="0 20 0" to="0 5.5 0"></a-animation>
+        <a-animation attribute="position" begin="reset" dur="7000" repeat="0" from="0 -4 0" to="0 5.5 0"></a-animation>
+      </a-box>
+
+      <a-box id="elva" material="src: #bush; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="0 7.5 0" 
+           wire="on: click; emit: up; targets: #el">
+    </a-box>
+    <a-box id="elvb" material="src: #bush; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="0 23 0" 
+           wire="on: click; emit: down; targets: #el">
+    </a-box>
+    <a-box id="elvc" material="src: #bush; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="0 3 0" 
+           wire="on: click; emit: reset; targets: #el">
+    </a-box>
+
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="5 6.5 12" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="-5 6.5 12" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="5 6.5 18" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="-5 6.5 18" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="2 6.5 10" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="-2 6.5 10" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="2 6.5 20" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+      <a-dodecahedron material="src: #bush; repeat: 4 4" radius="0.75" scale="1.2 1 1" position="-2 6.5 20" n-mesh-collider="type: environment; convex: true"></a-dodecahedron>
+
+    <!-- Landscape object add -->
+
+      <a-obj-model scale="3 3 3" src="#feild-obj" mtl="#feild-mtl" wrapping position="0 0 0" rotation="0 -90 0" n-mesh-collider="type: environment; convex: true"></a-obj-model>
+      <!--a-entity id="stdm" scale="3 3 3" gltf-model="#feild-gltf" wrapping position="0 0 0" rotation="0 -90 0" n-mesh-collider="type: environment; convex: true"-->
+
+    <!-- Animation adds-->
+
+    <a-box id="axa" material="src: #conc; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="-4.0 20.5 -6" 
+           wire="on: click; emit: eventtag; targets: #aa, #da, #ga">
+    </a-box>
+    <a-box id="axb" material="src: #conc; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="-4.3 20.5 -6" 
+           wire="on: click; emit: eventtag; targets: #ba, #ea, #ha">
+    </a-box>
+    <a-box id="axc" material="src: #conc; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="-4.6 20.5 -6" 
+           wire="on: click; emit: eventtag; targets: #ca, #fa, #ia">
+    </a-box>
+  
+    <a-box id="bxa" material="src: #conc; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="4.0 20.5 -6" 
+           wire="on: click; emit: eventtag; targets: #ab, #db, #gb">
+    </a-box>
+    <a-box id="bxb" material="src: #conc; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="4.3 20.5 -6" 
+           wire="on: click; emit: eventtag; targets: #bb, #eb, #hb">
+    </a-box>
+    <a-box id="bxc" material="src: #conc; repeat: 3 10" 
+           depth=".2" height=".2" width=".2" position="4.6 20.5 -6" 
+           wire="on: click; emit: eventtag; targets: #cb, #fb, #ib">
+    </a-box>
+    
+      <a-box id="aa" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="40 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="40 -5 -45" to="40 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ba" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="30 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="30 -5 -45" to="30 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ca" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="20 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="20 -5 -45" to="20 0 -45"></a-animation>
+      </a-box>
+      <a-box id="da" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="10 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="10 -5 -45" to="10 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ea" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="0 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="0 -5 -45" to="0 0 -45"></a-animation>
+      </a-box>
+      <a-box id="fa" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="-10 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-10 -5 -45" to="-10 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ga" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="-20 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-20 -5 -45" to="-20 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ha" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="-30 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-30 -5 -45" to="-30 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ia" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 -45" position="-40 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-40 -5 -45" to="-40 0 -45"></a-animation>
+      </a-box>
+
+      <a-box id="ab" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="-40 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-40 -5 -45" to="-40 0 -45"></a-animation>
+      </a-box>
+      <a-box id="bb" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="-30 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-30 -5 -45" to="-30 0 -45"></a-animation>
+      </a-box>
+      <a-box id="cb" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="-20 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-20 -5 -45" to="-20 0 -45"></a-animation>
+      </a-box>
+      <a-box id="db" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="-10 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="-10 -5 -45" to="-10 0 -45"></a-animation>
+      </a-box>
+      <a-box id="eb" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="0 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="0 -5 -45" to="0 0 -45"></a-animation>
+      </a-box>
+      <a-box id="fb" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="10 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="10 -5 -45" to="10 0 -45"></a-animation>
+      </a-box>
+      <a-box id="gb" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="20 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="20 -5 -45" to="20 0 -45"></a-animation>
+      </a-box>
+      <a-box id="hb" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="30 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="30 -5 -45" to="30 0 -45"></a-animation>
+      </a-box>
+      <a-box id="ib" material="src: #conc; repeat: 3 10" sync="own-on: eventtag" sync-transform depth="70" height=".2" width="15" rotation="0 0 45" position="40 -5 -45" n-mesh-collider="type: environment; convex: true">
+        <a-animation attribute="position" begin="eventtag" easing="linear" fill="none" dur="1500" repeat="0" from="40 -5 -45" to="40 0 -45"></a-animation>
+      </a-box>
+
+    <!-- Sky load and animation -->
+
+      <a-sky radius="1001" rotation="0 -90 0" src="#sky">
+        <!--a-animation attribute="position" begin="eventtag" dur="900000" repeat="0" from="0 0 140" to="0 0 380"></a-animation-->
+      </a-sky>
+
+    </a-scene>
+  </body>
+</html>
